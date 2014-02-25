@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="robots" content="noindex,nofollow" />
+	
+	<link href="/styles/bootstrap.min.css" rel="stylesheet" media="screen" />
+	<link href="/styles/style.css" rel="stylesheet" media="screen" />
+	<script type="text/javascript" src="/js/jq.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/report.js"></script>
+	
+	<!--script type="text/javascript" src="/js/main.js"></script-->
+	
+</head>
+
+<body>
+	<%- partial('../partials/header') %>
+	<div>
+	<section id="reportList">
+    <table id = "reportTable" "width="50%" class="table table-striped" >
+	
+    <tr><th>Test Name</th><th>Status</th><th>Date</th></tr>
+        <% data.forEach(function(report)  {console.log(report.path); %>
+			<tr id=<%= 'reportTr'+report.id %> ><td><a href=<%= report.path %> target=_blank><%= report.name %></a></td><td><%= report.status %></td><td> <%= report.date %></td></tr>
+		<% }); %>
+    </table>
+	</section>
+	<script>testReport();</script>
+	</div>
+	<%- partial('../partials/footer') %>
+</body>
+</html>

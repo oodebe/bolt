@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login/Signup Page</title>
+	
+<style>
+ body,
+    html {
+    margin:0;
+    padding:0;
+    }
+
+.top-buffer { margin-top:20px; }
+
+h1{ color:white; }
+
+.text-center{ text-align: center; }
+
+</style>
+<link href="/styles/bootstrap.min.css" rel="stylesheet" media="screen" />
+	<link href="/styles/style.css" rel="stylesheet" media="screen" />
+	<script type="text/javascript" src="/js/jq.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/socket.io.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+	
+  </head>
+
+  <body>
+<div class="container target">
+    <div class="navbar navbar-default" role="navigation">
+       <table class="">
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="//placehold.it/150x150" class="">
+                    </td>
+                    <td>
+                      <h1 class=""><p>&nbsp;&nbsp;Project Name</p></h1>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container top-buffer"></div>
+    </div>
+    <div class="col-xs-12 col-sm-9 top-buffer">
+        <div class="row ">
+
+
+
+
+<div class="container">
+	<div class="row">
+        <div class="span12">
+    		<div class="" id="loginModal">
+              
+              <div class="modal-body">
+                <div class="well">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                    <li><a href="#create" data-toggle="tab">Create Account</a></li>
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="login">
+                      
+
+<form class="form-horizontal">
+                        <div class="heading">
+                            <h4 class="form-heading">Sign In</h4>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputCompanyName">Company Name</label>
+
+                            <div class="controls">
+                                <input id="inputCompanyName" placeholder=
+                                "E.g. Some Software Pvt. Ltd." type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputUsername">Username</label>
+
+                            <div class="controls">
+                                <input id="inputUsername" placeholder=
+                                "E.g. ashwinhegde" type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputPassword">Password</label>
+
+                            <div class="controls">
+                                <input id="inputPassword" placeholder=
+                                "Min. 8 Characters" type="password">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="checkbox"><input type="checkbox">
+                                Keep me signed in ¦ <a class="btn btn-link"
+                                href="#">Forgot my password</a></label>
+                                <button class="btn btn-success" type=
+                                "submit">Sign In</button> <button class="btn"
+                                type="button">Help</button>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-error">
+                            <button class="close" data-dismiss="alert" type=
+                            "button">×</button> <strong>Access Denied!</strong>
+                            Please provide valid authorization.
+                        </div>
+                    </form>
+
+   
+                    </div>
+                    <div class="tab-pane fade" id="create">
+                      
+
+<form class="form-horizontal">
+                        <div class="heading">
+                            <h4 class="form-heading">Sign Up</h4>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputCompanyName">Company Name</label>
+
+                            <div class="controls">
+                                <input id="inputCompanyName" placeholder=
+                                "E.g. Some Software Pvt. Ltd." type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputFirst">First
+                            Name</label>
+
+                            <div class="controls">
+                                <input id="inputFirst" placeholder=
+                                "E.g. Ashwin" type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputLast">Last
+                            Name</label>
+
+                            <div class="controls">
+                                <input id="inputLast" placeholder="E.g. Hegde"
+                                type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputEmail">Email</label>
+
+                            <div class="controls">
+                                <input id="inputEmail" placeholder=
+                                "E.g. ashwinh@cybage.com" type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputUser">Username</label>
+
+                            <div class="controls">
+                                <input id="inputUser" placeholder=
+                                "E.g. ashwinhegde" type="text">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for=
+                            "inputPassword">Password</label>
+
+                            <div class="controls">
+                                <input id="inputPassword" placeholder=
+                                "Min. 8 Characters" type="password">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="checkbox"><input type="checkbox">
+                                I agree all your <a href="#">Terms of
+                                Services</a></label> <button class=
+                                "btn btn-success" type="submit">Sign
+                                Up</button> <button class="btn" type=
+                                "button">Help</button>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <button class="close" data-dismiss="alert" type=
+                            "button">×</button> <strong>Confirmation:</strong>
+                            A confirmation email has been sent to your
+                            email.<br>
+                            Thank you for your registration.
+                        </div>
+                    </form>
+
+
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+	</div>
+</div>
+</div>

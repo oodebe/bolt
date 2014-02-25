@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>A/B Test</title>
+
+<style>
+ body,
+    html {
+    margin:0;
+    padding:0;
+    }
+
+.top-buffer { margin-top:20px; }
+
+h1{ color:white; }
+
+.text-center{ text-align: center; }
+
+</style>
+<link href="/styles/bootstrap.min.css" rel="stylesheet" media="screen" />
+	<link href="/styles/style.css" rel="stylesheet" media="screen" />
+	<script type="text/javascript" src="/js/jq.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/socket.io.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+
+  </head>
+
+  <body>
+<div class="container target">
+    <div class="navbar navbar-default" role="navigation">
+        <ul class="nav navbar-nav navbar-right">
+            <li class=""><a class="" href="#">Account</a>
+
+            </li>
+            <li><a class="" href="#">Settings</a>
+
+            </li>
+        </ul>
+        <table class="">
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="//placehold.it/150x150" class="">
+                    </td>
+                    <td>
+                      <h1 class=""><p>&nbsp;&nbsp;Project Name</p></h1>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container top-buffer">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class=""><a class="" href="#">Dashboard</a>
+
+                    </li>
+                    <li class="active dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tests <b class="caret"></b></a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="" href="#">Action</a>
+
+                            </li>
+                            <li><a class="" href="#">Another action</a>
+
+                            </li>
+                            <li><a class="" href="#">Something else here</a>
+
+                            </li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a class="" href="#">Separated link</a>
+
+                            </li>
+                            <li><a class="" href="#">One more separated link</a>
+
+                            </li>
+                </ul>
+                </li>
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="" href="#">Action</a>
+
+                        </li>
+                        <li><a class="" href="#">Another action</a>
+
+                        </li>
+                        <li><a class="" href="#">Something else here</a>
+
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a class="" href="#">Separated link</a>
+
+                        </li>
+                        <li><a class="" href="#">One more separated link</a>
+
+                        </li>
+                        </ul>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<ul class="nav nav-tabs">
+  <li><a href="createtest.html">Step 1</a></li>
+  <li class="active"><a href="#">Step 2</a></li>
+  <li><a href="#">Step 3</a></li>
+</ul>
+	<form class="well span12 form-horizontal top-buffer" id="frmTest">
+				<div class="control-group">
+					<label class="control-label" for="">Test Name</label>
+
+						<input type="text" name="test_name" class="span3" value="" />
+
+				</div>
+			
+				<div class="control-group">
+					<label class="control-label" for="">Requests</label>
+
+						<input type="text" name="requests" class="span1" value="" />
+
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="">Concurrency - Limit</label>
+					
+						<input type="text" name="concurrency" class="span1" value="" />
+						<input type="text" name="limit" class="span1" value="" />
+	
+				</div>
+				<div class="table-head">
+					<table class="table">
+						<tr class="tr-hide">
+							<td><button type="button" class="close">&times;</button></td>
+							<td><select class="span1" name="ctype" ><option value="GET">GET</option><option value="POST">POST</option></select></td>
+							<td><input type="text" name="urls" class="span3" value="" placeholder="Absolute URL" /></td>
+							<td><input type="text" name="titles" class="span2" value="" placeholder="Title" /></td>
+						</tr>
+						<tr>
+							<th><i class="icon-plus" id="addMore"></i></th>
+							<th>URLs</th>
+							<th>Titles</th>
+						</tr>
+					</table>
+				</div>
+				<div class="table-body">
+					<table class="table" id="pages">
+						<tbody>
+							<tr>
+								<td><button type="button" class="close">&times;</button></td>
+								<td><select class="span1" name="ctype" ><option value="GET">GET</option><option value="POST">POST</option></select></td>
+								<td><input type="text" name="urls" class="span3" value="" placeholder="Absolute URL" /></td>
+								<td><input type="text" name="titles" class="span2" value="" placeholder="Title" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<hr />
+				<div class="">
+					<button type="button" id="stop" class="btn-sm pull-right">Stop</button>
+					<button type="submit" class="btn-sm btn-primary pull-right">Start</button>
+					<!--a href="#" target="_blank" id="viewReport" class="btn btn-link hidden">View Report</a-->
+				</div>
+			</div>
+		
+		</form>
+
+  </body>
+</html>

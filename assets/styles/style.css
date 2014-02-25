@@ -81,3 +81,40 @@ hr {
 	font-size: 85%;
 }
 body { padding-top: 80px; }
+
+.navbar {
+	background-color: #7F462C;
+}
+ul.nav {
+	font-size: 15px;
+	
+}
+.navbar .nav > li > a {
+	color:black;
+	text-shadow:none;
+}
+.brand {
+	font-size: 28px;
+}
+.container {
+	margin-top: 60px;
+}
+.thumbnail {
+	height: 250px;
+}
+.leftpanel {
+	float: left;
+	width: 25%;
+	height: 200px;
+	margin-top: 30px;
+	#border:2px solid;
+	border-color:#f7f7f7;
+	margin-left: 20px;
+	font-size: 18px;
+	color: #0B578F;
+}
+
+.status {
+	font-size:13px;
+	color:#111111;
+}

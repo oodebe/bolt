@@ -37,6 +37,16 @@ module.exports = {
 		res.view('dashboard/index1',{
 			activeClass:activeClass
 		});
+	},
+	abtest1: function (req, res) {
+		var activeClass = {
+				'dashboard' : '',
+				'report' : '',
+				'createTest' : 'active'
+			}	 
+		res.view('partials/abtest',{
+			activeClass:activeClass
+		});
   },
 
   /**

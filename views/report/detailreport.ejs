@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="styles/bootstrap.css" rel="stylesheet">
+<link href="styles/style.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/highcharts.js"></script>
+
+<!--<style> 
+	{font-family:Arial,Helvetica,sans serif;font-size:10pt;} 
+	h1 {font-size:200%;} table {padding-bottom:25px;} 
+	table caption {font-weight:bold;font-size:120%;} 
+	td,th {border:1px solid #eee}
+	th {background-color:#eee}
+</style>-->
+</head>
+<body>
+	<%- partial('../partials/header') %>
+<center>
+	<div style="width:95%";><h1>Test results for <%= test_name %></h1>
+	<% if (!testCompleted) { %>
+	<center>
+		<img alt="" src="data:image/gif;base64,R0lGODlhEAAQAPQAAP///wAAAPj4+Dg4OISEhAYGBiYmJtbW1qioqBYWFnZ2dmZmZuTk5JiYmMbGxkhISFZWVgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAAFUCAgjmRpnqUwFGwhKoRgqq2YFMaRGjWA8AbZiIBbjQQ8AmmFUJEQhQGJhaKOrCksgEla+KIkYvC6SJKQOISoNSYdeIk1ayA8ExTyeR3F749CACH5BAkKAAAALAAAAAAQABAAAAVoICCKR9KMaCoaxeCoqEAkRX3AwMHWxQIIjJSAZWgUEgzBwCBAEQpMwIDwY1FHgwJCtOW2UDWYIDyqNVVkUbYr6CK+o2eUMKgWrqKhj0FrEM8jQQALPFA3MAc8CQSAMA5ZBjgqDQmHIyEAIfkECQoAAAAsAAAAABAAEAAABWAgII4j85Ao2hRIKgrEUBQJLaSHMe8zgQo6Q8sxS7RIhILhBkgumCTZsXkACBC+0cwF2GoLLoFXREDcDlkAojBICRaFLDCOQtQKjmsQSubtDFU/NXcDBHwkaw1cKQ8MiyEAIfkECQoAAAAsAAAAABAAEAAABVIgII5kaZ6AIJQCMRTFQKiDQx4GrBfGa4uCnAEhQuRgPwCBtwK+kCNFgjh6QlFYgGO7baJ2CxIioSDpwqNggWCGDVVGphly3BkOpXDrKfNm/4AhACH5BAkKAAAALAAAAAAQABAAAAVgICCOZGmeqEAMRTEQwskYbV0Yx7kYSIzQhtgoBxCKBDQCIOcoLBimRiFhSABYU5gIgW01pLUBYkRItAYAqrlhYiwKjiWAcDMWY8QjsCf4DewiBzQ2N1AmKlgvgCiMjSQhACH5BAkKAAAALAAAAAAQABAAAAVfICCOZGmeqEgUxUAIpkA0AMKyxkEiSZEIsJqhYAg+boUFSTAkiBiNHks3sg1ILAfBiS10gyqCg0UaFBCkwy3RYKiIYMAC+RAxiQgYsJdAjw5DN2gILzEEZgVcKYuMJiEAOwAAAAAAAAAAAA==" />
+	</center>
+	<% } %>
+	<% if (Object.keys(reports).length  == 0) { %>
+	<span>No reports found, please wait for test to complete</span>
+	<% } else{%>
+	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+		<% var requests = 1000 %>
+		 <% for(var s in reports)  { %>
+			<li><a href=<%='#tab_'+s %> data-toggle="tab"> <%=s %> </a></li>
+		 <% } %>
+	</ul>
+	<div id="my-tab-content" class="tab-content">
+		<% for(var i in reports)  { 
+			var title = reports[i];
+			%>
+		<div class='tab-pane' id=<%='tab_'+i %> >
+			<table>
+				<tr><th>Concurrency</th><th>Min response Time</th><th>Mean response Time</th><th>Median response Time</th><th>Std. Deviation</th><th>90% responses Time<th>Max response Time</th><th>HTTP Errors (in %)</th><th>Total Failed Requests (in %) </th><th>Failed - Connect</th><th>Failed - Receive</th><th>Failed - Length</th><th>Failed - Exception</th></tr>
+		
+		<% for (var j in title) {
+			var page = reports[i][j];
+			avg = { 'min': 0, 'mean': 0, 'sd': 0, 'median': 0, 'max': 0, '90': 0, 'fail_connect': 0, 'fail_receive': 0, 'fail_length': 0, 'fail_exception': 0, 'fail_total': 0, 'errors': 0 };
+			var atag = page[0].params.concurrency;
+			
+			count = page.length;
+			avg['min'] = (avg['min'] / count).toFixed(2);
+			avg['max'] = (avg['max'] / count).toFixed(2);
+			avg['median'] = (avg['median'] / count).toFixed(2);
+			avg['mean'] = (avg['mean'] / count).toFixed(2);
+			avg['sd'] = (avg['sd'] / count).toFixed(2);
+			avg['errors'] =((avg['errors'] / (requests*count))*100).toFixed(2);
+			avg['fail_total'] =((avg['fail_total'] / (requests*count))*100).toFixed(2);
+			%>
+			<tr><td><%= atag %>
+			<%
+				for (k in page) {
+					flds = page[k].result;
+					for (m in flds) {
+						avg[m] += flds[m];
+					}
+					var f = '/view/' + page[k].params.test_type + '/reports/'+test_name+'/logs/' + page[k].params.filename + '.txt'; %>
+					(<a href=<%= f %> target="_blank"><%=(parseInt(k)+1)%></a>)
+			<%	
+				}			
+			%></td><td><%= avg['min']%></td><td><%= avg['mean']%></td><td><%= avg['median']%></td><td><%= avg['sd']%></td><td><%= avg['90']%></td><td><%= avg['max']%></td><td><%= avg['errors']%></td><td><%= avg['fail_total']%></td><td><%= avg['fail_connect']%></td><td><%= avg['fail_receive']%></td><td><%= avg['fail_length']%></td><td><%= avg['fail_exception']%></td></tr>
+			<% } %>
+			</table><br>
+			<% if(testCompleted) { 
+				console.log(i);
+				var dataCat = [];
+				var chartParam = {};
+				for (var k in reports[i]){
+					dataCat.push(k);
+					for (var m in reports[i][k][0].result){
+						if(!chartParam[m])chartParam[m] =[];
+						chartParam[m].push(reports[i][k][0].result[m]);
+					}
+				}
+				var cSeries = [];
+				for (var z in chartParam){
+					var sData = {};
+					sData['name'] = z;
+					sData['data'] = chartParam[z];
+					cSeries.push(sData);
+				}
+				%>
+				<div id=<%= i+"_charts" %> >
+					<div id=<%= i+"_report" %> style='max-width: 800px; height: 300px; margin: 0 auto' ></div>
+					<script> $('#<%= i %>_report'). highcharts({ title: { text: 'Requests : <%=requests%>  --  Page <%= i %>', x: -20}, xAxis: { title: { text: ' Concurrency ' },categories: <%- JSON.stringify(dataCat) %>}, yAxis: { title: { text: 'Response Time ' }, plotLines: [{ value : 0, width: 1, color: '#808080' }] }, tooltip: {valueSuffix: 'msec' }, legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0 }, series: <%- JSON.stringify(cSeries) %>});
+					</script>
+				</div><br>					
+			<% } %>
+			<br></div>
+		<% } %>
+	</div></div></div></center>
+	
+	<% } %>
+	<%- partial('../partials/footer') %>
+</body>
+</html>

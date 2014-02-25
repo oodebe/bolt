@@ -36,6 +36,12 @@ module.exports.routes = {
 		controller: 'dashboard',
 		action: 'abtest'
 	},
+	'/abtest1':  {
+		//view: 'partials/abtest'
+		controller: 'dashboard',
+		action: 'abtest1'
+	},
+	
 	'/home': {
 		view: 'home/index'
 	},
@@ -43,6 +49,10 @@ module.exports.routes = {
 		controller: 'dashboard',
 		action: 'dashboard'
 	},  
+	'/createtest': {
+		controller: 'dashboard',
+		action: 'dashboard'
+	},
 	'/start': {
     controller: 'MasterController',
     action: 'start'

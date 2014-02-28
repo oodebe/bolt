@@ -48,13 +48,13 @@ module.exports = {
 			activeClass:activeClass
 		});
   },
-	system_matrix: function (req, res) {
+	system_matric: function (req, res) {
 		var activeClass = {
 				'dashboard' : '',
 				'report' : '',
 				'createTest' : 'active'
 			}	 
-		res.view('partials/systemmatrix',{
+		res.view('partials/systemmatric',{
 			activeClass:activeClass
 		});
 	},

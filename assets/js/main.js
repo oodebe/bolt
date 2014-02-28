@@ -16,9 +16,14 @@ $(document).ready(function () {
 				//$('#viewReport').attr('href', reportLink).show();
 			}
 		});
-		
+		$('#myModal').modal('show');
 		return false;
 	});
+	
+	$('#no').bind('click', function () {
+		window.location='/reports';
+	});
+	
 	
 	var tblPages = $('#pages')[0];
 	$('#addMore').bind('click', function () {

@@ -4,6 +4,16 @@ $(document).ready(function () {
 		socket.get("/report/subscribe");
 	});
 	report = new ReportPanel();
+	
+	$('.trigger').click(function () {
+		var test_name = $(this).closest('tr').find('td').eq(2).html();	
+		var status = $(this).closest('tr').find('td').eq(2).html().split(' ');
+		var test_type = $(this).closest('tr').find('td').eq(2).html();
+	
+		socket.post('/actionRoute',{test_name:test_name, action: status, test_type: test_type}, function (response) {
+			console.log("done")
+		});
+	});
 });
 var imageStatus = {
 	'Running' : {
@@ -20,6 +30,7 @@ var imageStatus = {
 	}
 }
 
+
 function ReportPanel(){
 	var self =this;
 	self.class = 'ReportPanel';
@@ -29,7 +40,7 @@ function ReportPanel(){
 ReportPanel.prototype.create = function (input) {
 	var self = this;
 	var data = input.data;
-	var newRow = "<tr id='reportTr"+data.id+"' ><td><i class="+imageStatus[data.status].action+"></i></td><td><a href="+data.path+" target=_blank>"+ data.name +"</a></td><td>"+data.status +" <i class=icon-refresh></i></td><td>"+ data.test_type +"</td><td>"+ data.description +"</td><td>"+ data.date +"</td></tr>";
+	var newRow = "<tr id='reportTr"+data.id+"' ><td><i class="+imageStatus[data.status].action+" trigger></i></td><td><a href="+data.path+" target=_blank>"+ data.name +"</a></td><td>"+data.status +" <i class=icon-refresh></i></td><td>"+ data.test_type +"</td><td>"+ data.description +"</td><td>"+ data.date +"</td></tr>";
 	$('#reportTable > tbody:last').append(newRow);
 	$("#"+data.status).html(parseInt($("#"+data.status).html())+1);	
 }
@@ -48,3 +59,5 @@ ReportPanel.prototype.update = function (input) {
 	//~ var newRow = "<tr id='reportTr"+data.id+"' ><td><a href="+data.path+" target=_blank>"+ data.name +"</a></td><td> "+data.date +"</td><td>"+ data.status +"</td></tr>";
 	//~ $('#reportTable > tbody:last').append(newRow);
 //~ }
+
+

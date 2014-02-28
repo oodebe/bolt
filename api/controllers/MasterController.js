@@ -52,6 +52,9 @@ module.exports = {
 		console.log('starting test');
 		test.start();
   },
+  actionRoute:function (req,res) {
+	  res.end();
+  },
   recovery:function (req,res) {
 		var self = this;
 		res.writeHead(200, {'content-type': 'text/html'});

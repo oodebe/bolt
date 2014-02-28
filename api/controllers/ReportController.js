@@ -26,49 +26,64 @@ module.exports = {
 			Completed : 0,
 			Running : 0
 			};
+		var sortImage = {
+			Asc : 'icon-chevron-up',
+			Dsc : 'icon-chevron-down'
+		}
 		var testStatus = {};
 		var sortField ='name';
+		var sorting =(req.query.sort !==undefined && req.query.sort!=='') ? sort:'Asc';
 		if(req.query.status!==undefined && req.query.status!=='') {
 			testStatus['status'] = req.query.status;
 		}
-		if(req.query.sort!==undefined && req.query.sort!=='') {
-			sortField = req.query.sort;
+		if(req.query.sortField!==undefined && req.query.sortField!=='') {
+			sortField = req.query.sortField;
 		}
-		Report.find(testStatus).sort(sortField+' ASC').done(function(err, reports) {
+		
+		Report.find({}).sort(sortField+' '+sorting).done(function(err, reports) {
 		  // Error handling
 		  if (err) {
 			return console.log(err);
 		  // Found multiple reports!
 		  } else {
-			for (i in reports) {
-				statusCounts[reports[i].status]++;	
-			}	
-			 var activeClass = {
-				'dashboard' : '',
-				'report' : 'active',
-				'createTest' : ''
-			}	
-			var imageStatus = {
-				'Running' : {
-					'status' :'icon-refresh',
-					'action' : 'icon-stop'
-				},
-				'Halted' : {
-					'status' : 'icon-pause',
-					'action' : 'icon-play'
-				},
-				'Completed' : {
-					'status' : 'icon-check',
-					'action' : 'icon-remove'
-				},
-				'statusCounts' : statusCounts
+				for (i in reports) {
+					statusCounts[reports[i].status]++;	
+				}
+				Report.find(testStatus).sort(sortField+' '+sorting).done(function(err,reports) {
+					if (err) {
+						return console.log(err);
+					} else {
+						var activeClass = {
+							'dashboard' : '',
+							'report' : 'active',
+							'createTest' : ''
+						}
+							
+						var imageStatus = {
+							'Running' : {
+								'status' :'icon-refresh',
+								'action' : 'icon-stop'
+							},
+							'Halted' : {
+								'status' : 'icon-pause',
+								'action' : 'icon-play'
+							},
+							'Completed' : {
+								'status' : 'icon-check',
+								'action' : 'icon-remove'
+							},
+							'statusCounts' : statusCounts
+						}
+						res.view('report/index',{
+							data: reports,
+							activeClass:activeClass,
+							showstatus:imageStatus,
+							sortIcon: sortImage[sorting]
+						});
+					}
+				});
+			  
 			}
-			res.view('report/index',{
-                data: reports,
-                activeClass:activeClass,
-                showstatus:imageStatus
-            });
-		  }
 		});
   },
 detailReport: function (req, res) {

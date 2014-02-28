@@ -42,10 +42,10 @@ module.exports.routes = {
 		action: 'abtest1'
 	},
 	
-	'/system_matrix':  {
+	'/system_matric':  {
 		//view: 'partials/abtest'
 		controller: 'dashboard',
-		action: 'system_matrix'
+		action: 'system_matric'
 	},
 	
 	'/home': {
@@ -63,6 +63,12 @@ module.exports.routes = {
     controller: 'MasterController',
     action: 'start'
 	}, 
+	
+	'/actionRoute': {
+    controller: 'MasterController',
+    action: 'actionRoute'
+	}, 
+	
 	'/_recovery': {
     controller: 'MasterController',
     action: 'recovery'

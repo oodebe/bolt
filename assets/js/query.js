@@ -1,14 +1,21 @@
 $(document).ready(function () {
 	$(".getQuery").click(function(){
+		var pathname='';
+		if ($(this).find('i').attr('class') === "icon-chevron-up" ) {
+			$(this).find('i').attr('class', "icon-chevron-down");
+		} else {
+			$(this).find('i').attr('class' ,"icon-chevron-up");
+			keyvalue.push('sort=Dsc'); 
+		}
 		keyvalue= [];
 		var parameter=$(this).attr("url");
 		var Data = ExtractQueryString(parameter);
 		for(var i in Data) {
 			keyvalue.push(i+"="+Data[i]);
 		}
-		var pathname= keyvalue.join("&");
+		pathname += keyvalue.join("&");
 		console.log(pathname)
-		window.location = "/reports?"+pathname;
+		//window.location = "/reports?"+pathname;
 		
 	});
 	
@@ -19,7 +26,7 @@ function ExtractQueryString(parameter) {
 	
     for (var i = 0; i < spliturl.length; i++) {
         var aTemp = spliturl[i].split("=");
-        if (aTemp[1] !==undefined && aTemp[1].length > 0) {
+        if (aTemp[1] !== undefined && aTemp[1].length > 0) {
             oResult[aTemp[0]] = unescape(aTemp[1]);
         }
     }

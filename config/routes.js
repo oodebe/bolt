@@ -42,6 +42,12 @@ module.exports.routes = {
 		action: 'abtest1'
 	},
 	
+	'/system_matrix':  {
+		//view: 'partials/abtest'
+		controller: 'dashboard',
+		action: 'system_matrix'
+	},
+	
 	'/home': {
 		view: 'home/index'
 	},

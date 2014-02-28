@@ -21,11 +21,13 @@ var path = require('path');
 
 module.exports = {
   showReports: function (req, res) {
-		pendingCount = 0;
-		runningCount = 0;
-		completedCount = 0;
+		var statusCounts = {
+			Halted : 0,
+			Completed : 0,
+			Running : 0
+			};
 		var testStatus = {};
-		var sortField ='';
+		var sortField ='name';
 		if(req.query.status!==undefined && req.query.status!=='') {
 			testStatus['status'] = req.query.status;
 		}
@@ -38,35 +40,33 @@ module.exports = {
 			return console.log(err);
 		  // Found multiple reports!
 		  } else {
-				for (i in reports) {
-					if(reports[i].status === 'Pending') {
-						pendingCount++;
-					} else if (reports[i].status === 'Completed') {
-						completedCount++;
-					} else {
-						runningCount++
-					}		
+			for (i in reports) {
+				statusCounts[reports[i].status]++;	
 			}	
 			 var activeClass = {
 				'dashboard' : '',
 				'report' : 'active',
 				'createTest' : ''
 			}	
-				var status = {
-					'Pending' : 'icon-refresh',
-					'Paused' : 'icon-pause',
-					'Completed' : 'icon-check',
-					'pendingCount' : pendingCount,
-					'runningCount' : runningCount,
-					'completedCount' : completedCount
-				}
-				//console.log(status);
-			 res.view('report/index',{
+			var imageStatus = {
+				'Running' : {
+					'status' :'icon-refresh',
+					'action' : 'icon-stop'
+				},
+				'Halted' : {
+					'status' : 'icon-pause',
+					'action' : 'icon-play'
+				},
+				'Completed' : {
+					'status' : 'icon-check',
+					'action' : 'icon-remove'
+				},
+				'statusCounts' : statusCounts
+			}
+			res.view('report/index',{
                 data: reports,
                 activeClass:activeClass,
-                showstatus:status
-                
-                
+                showstatus:imageStatus
             });
 		  }
 		});

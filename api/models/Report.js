@@ -10,11 +10,17 @@ module.exports = {
 attributes: {
   	name:{
 		type: 'string',
+		required: true
+	},
+	tname:{
+		type: 'string',
 		required: true,
-		unique: true
+		unique : true
 	},
   	date:'datetime',
   	path:'string',
-  	status : 'string'
+  	status : 'string',
+  	description : 'string',
+  	test_type : 'string'
   }
 };

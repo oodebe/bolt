@@ -21,12 +21,14 @@ module.exports.bootstrap = function (cb) {
 			activeTests.push(path.basename(reports[i],'.test'));
 			continue;
 		}
-		var strPattern = /(\d{4})\-(\d{2})\-(\d{2})/ig;
-		var date = strPattern.exec(reports[i]);
+		var reportData = JSON.parse(fs.readFileSync(report_folder+reports[i]+'/test.input'));
 		Report.create({
-		  name: reports[i],
-		  date: date[0]+'T12:21:53.104Z',
+		  tname : reports[i],
+		  name: reportData.tname,
+		  date: reportData.createTime,
 		  status : 'Completed',
+		  description : reportData.description,
+		  test_type : reportData.test_type,
 		  path : '/detailedReport?test_type=ab&cloudWatch=true&couchDb=true&test_name='+reports[i]
 		}).done(function(){});
 	}

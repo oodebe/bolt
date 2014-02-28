@@ -48,6 +48,16 @@ module.exports = {
 			activeClass:activeClass
 		});
   },
+	system_matrix: function (req, res) {
+		var activeClass = {
+				'dashboard' : '',
+				'report' : '',
+				'createTest' : 'active'
+			}	 
+		res.view('partials/systemmatrix',{
+			activeClass:activeClass
+		});
+	},
 
   /**
    * Overrides for the settings in `config/controllers.js`

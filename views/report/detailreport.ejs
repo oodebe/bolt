@@ -28,9 +28,17 @@
 	<span>No reports found, please wait for test to complete</span>
 	<% } else{%>
 	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-		<% var requests = 1000 %>
-		 <% for(var s in reports)  { %>
-			<li><a href=<%='#tab_'+s %> data-toggle="tab"> <%=s %> </a></li>
+		<% var requests = 1000
+		   var i=0;
+		%>
+		 <% for(var s in reports)  {
+		       if (i==0)  {
+				   i++; %>
+				<li class="active"><a href=<%='#tab_'+s %> data-toggle="tab"> <%=s %> </a></li>
+		       <% } else {
+					 %>
+					<li><a href=<%='#tab_'+s %> data-toggle="tab"> <%=s %> </a></li>
+			    <% } %>
 		 <% } %>
 	</ul>
 	<div id="my-tab-content" class="tab-content">

@@ -25,23 +25,23 @@
 		<section class="leftpanel">
 			<div>Test states
 		<hr></hr>
-		<a href="#" class="status getQuery" url="status=Pending"><i class="icon-refresh"></i>Pending <span style="float:right"><%= showstatus.pendingCount %></span></a></br></br>
-		<a href="#" class="status getQuery"><i class="icon-check"></i>Completed <span style="float:right"><%= showstatus.completedCount %></span></a></br></br>
-		<a href="/reports?status=Running" class="status "><i class="icon-refresh"></i>Running <span style="float:right"><%= showstatus.runningCount %></span></a>
+		<a  class="status getQuery" url="status=Halted "><i class="icon-pause"></i>Halted <span style="float:right" id="Halted"><%= showstatus.statusCounts.Halted %></span></a></br></br>
+		<a  class="status getQuery" url="status=Completed"><i class="icon-check"></i>Completed <span style="float:right" id="Completed"><%= showstatus.statusCounts.Completed %></span></a></br></br>
+		<a  class="status getQuery " url="status=Running"><i class="icon-refresh"></i>Running <span style="float:right" id="Running"><%= showstatus.statusCounts.Running %></span></a>
 		</div>
 		<hr></hr>
 		<div>Test types
 		<hr></hr>
 		<a href="#" class="status">A/B Test</a></br></br>
-		<a href="#" class="status">Split URL Test</a></br></br>
+		<a href="#" class="status">System Matrix Test</a></br></br>
 		</div>
 		</section>
 	<section id="reportList" style="float:right;width:70%;height:30%">
     <table id = "reportTable" style="border:1px solid #d5d5d5;" "width=50% height=30% class="table table-striped" >
 	
-    <tr><th>Test Name <a  class="getQuery" url="sort=name"><i class="icon-chevron-up"></i></a></th><th>Status <a href="/reports?sort=status"><i class="icon-chevron-up"></i></a></th><th>Date <a href="/reports?sort=date"><i class="icon-chevron-up"></i></a></th></tr>
-        <% data.forEach(function(report)  { %>
-			<tr id=<%= 'reportTr'+report.id %> ><td><a href=<%= report.path %> target=_blank><%= report.name %></a></td><td><%= report.status  %> <i class=<%= showstatus[report.status] %>></i></td><td> <%= report.date %></td></tr>
+    <tr><th></th><th>Test Name <a  class="getQuery" url="sort=name"><i class="icon-chevron-up"></i></a></th><th>Status <a  class="getQuery" url="sort=status"><i class="icon-chevron-up"></i></a></th><th>Test Type <a  class="getQuery" url="sort=test_type"><i class="icon-chevron-up"></i></a></th><th>Description <a  class="getQuery" url="sort=description"><i class="icon-chevron-up"></i></a></th><th>Date <a class="getQuery" url="sort=date"><i class="icon-chevron-up"></i></a></th></tr>
+        <% data.forEach(function(report)  {	console.log(report);console.log(showstatus[report.status]);%>
+			<tr id=<%= 'reportTr'+report.id %> ><td><i class=<%= showstatus[report.status].action %>></i></td><td><a href=<%= report.path %> target=_blank><%= report.name %></a></td><td><%= report.status  %> <i class=<%= showstatus[report.status].status %>></i></td><td> <%= report.test_type %></td><td> <%= report.description %></td><td> <%= report.date %></td></tr>
 		<% }); %>
     </table>
 	</section>

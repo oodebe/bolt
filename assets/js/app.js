@@ -52,7 +52,7 @@
         '{ console.log(response); })`'
     );
     ///////////////////////////////////////////////////////////
-	socket.get("/report/subscribe");	
+	//socket.get("/report/subscribe");	
 
   });
 

@@ -32,12 +32,19 @@ module.exports = {
 		}
 		var testStatus = {};
 		var sortField ='name';
-		var sorting =(req.query.sort !==undefined && req.query.sort!=='') ? sort:'Asc';
+		var sorting =(req.query.sort !==undefined && req.query.sort!=='') ? req.query.sort:'Asc';
 		if(req.query.status!==undefined && req.query.status!=='') {
 			testStatus['status'] = req.query.status;
 		}
 		if(req.query.sortField!==undefined && req.query.sortField!=='') {
 			sortField = req.query.sortField;
+		}
+		if(req.query.sort!==undefined && req.query.sort!=='' && sort=="Dsc") {
+			sorting = req.query.sort;
+			icon='Asc';
+		} else {
+			sorting = 'Asc';
+			icon='Dsc';
 		}
 		
 		Report.find({}).sort(sortField+' '+sorting).done(function(err, reports) {
@@ -78,7 +85,7 @@ module.exports = {
 							data: reports,
 							activeClass:activeClass,
 							showstatus:imageStatus,
-							sortIcon: sortImage[sorting]
+							sortIcon: sortImage[icon]
 						});
 					}
 				});

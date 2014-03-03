@@ -1,13 +1,14 @@
 $(document).ready(function () {
 	$(".getQuery").click(function(){
 		var pathname='';
+		var keyvalue= [];
 		if ($(this).find('i').attr('class') === "icon-chevron-up" ) {
 			$(this).find('i').attr('class', "icon-chevron-down");
 		} else {
 			$(this).find('i').attr('class' ,"icon-chevron-up");
-			keyvalue.push('sort=Dsc'); 
+			keyvalue.push('sort=Desc'); 
 		}
-		keyvalue= [];
+		
 		var parameter=$(this).attr("url");
 		var Data = ExtractQueryString(parameter);
 		for(var i in Data) {
@@ -15,11 +16,11 @@ $(document).ready(function () {
 		}
 		pathname += keyvalue.join("&");
 		console.log(pathname)
-		//window.location = "/reports?"+pathname;
+		window.location = "/reports?"+pathname;
 		
 	});
 	
-function ExtractQueryString(parameter) {
+function ExtractQueryString(parameter) {	
     var oResult = {};
     var aQueryString = ((window.location).search.substr(1));
 	spliturl = (aQueryString+'&'+parameter).split("&");

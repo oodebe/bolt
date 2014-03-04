@@ -70,8 +70,8 @@ module.exports.routes = {
 	}, 
 	
 	'/_recovery': {
-    controller: 'MasterController',
-    action: 'recovery'
+    controller: 'ReportController',
+    action: 'create'
 	}, 
 	'/reports': {
     controller: 'ReportController',

@@ -90,8 +90,12 @@ module.exports.sockets = {
 			client.socket.leave(data.params.test_name);
 			config.clients[socket.id] = client;
 			delete config.busy[socket.id];
+			Report.update({tname: data.params.test_name},{status: 'Halted'},function(err,report){
+				Report.publishUpdate(report[0].id,{status: 'Halted'});
+			//socket.emit('message',report);
+			});
 			//sendStatus();
-			master.recover_AbortedTest('ab',data.params.test_name);
+			//master.recover_AbortedTest('ab',data.params.test_name);
 		});
 		
 		socket.on('progress', function (data) {

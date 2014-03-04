@@ -11,7 +11,17 @@
 var fs = require('fs');
 var path = require('path');
 module.exports.bootstrap = function (cb) {
-	
+	Report.destroy({}).done(function(err) {
+	  if (err) {
+		return console.log(err);
+		cb();
+		} else {
+		console.log('building');
+		buildReport(cb);
+	  }
+	});
+};	
+function buildReport(cb){
 	var testReports = {};
 	var activeTests = [];
 	var report_folder = __dirname + '/../api/tests/ab/reports/';   // need to show for all test types(ab,cWatch etc)
@@ -22,6 +32,7 @@ module.exports.bootstrap = function (cb) {
 			continue;
 		}
 		var reportData = JSON.parse(fs.readFileSync(report_folder+reports[i]+'/test.input'));
+		
 		Report.create({
 		  tname : reports[i],
 		  name: reportData.tname,
@@ -35,9 +46,9 @@ module.exports.bootstrap = function (cb) {
 	if(activeTests.length > 0){
 		for(var j in activeTests){
 			Report.update({
-			  name: activeTests[j]
+			  tname: activeTests[j]
 			},{
-			  status: 'Pending'
+			  status: 'Halted'
 			}, function(err, users) {});
 		}
 	}

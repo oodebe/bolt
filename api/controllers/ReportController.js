@@ -39,7 +39,7 @@ module.exports = {
 		if(req.query.sortField!==undefined && req.query.sortField!=='') {
 			sortField = req.query.sortField;
 		}
-		if(req.query.sort!==undefined && req.query.sort!=='' && sort=="Dsc") {
+		if(req.query.sort!==undefined && req.query.sort!=='' && req.query.sort=="Dsc") {
 			sorting = req.query.sort;
 			icon='Asc';
 		} else {
@@ -186,19 +186,19 @@ detailReport: function (req, res) {
     });
   },
   create: function (req, res) {
-	  //Report.create({
-		  //name: 'Randy',
-		  //status: 'Started',
-		  //date:'2014-02-17',
-		  //path:'#'
-		//}).done(function(err,report){
-			////console.log(report);
-			//Report.publishCreate(report.toJSON());
-			////socket.emit('message',report);
-			//});
-		return res.json({
-			hello: 'world'
+	  Report.findOne({tname:'abc'}).done(function(err, report) {
+		  // Error handling
+			if (err) {
+				return console.log(err);
+			} else {
+				console.log(report);
+			}
+			//else{
+				//console.log('Provided Test Case Not Found, Restarting Recovery Process');
+				//sails.controllers.master.recover_AbortedTest();
+		//	}
 		});
+		res.end();
   },
   subscribe: function (req, res) {
 	  Report.find({}).sort('date DESC').done(function(err, reports) {

@@ -2,22 +2,23 @@ $(document).ready(function () {
 	$(".getQuery").click(function(){
 		var pathname='';
 		var keyvalue= [];
-		if ($(this).find('i').attr('class') === "icon-chevron-up" ) {
-			$(this).find('i').attr('class', "icon-chevron-down");
-		} else {
-			$(this).find('i').attr('class' ,"icon-chevron-up");
-			keyvalue.push('sort=Desc'); 
-		}
+		//if ($(this).find('i').attr('class') === "icon-chevron-up" ) {
+			//$(this).find('i').attr('class', "icon-chevron-down");
+		//} else {
+			//$(this).find('i').attr('class' ,"icon-chevron-up");
+			//keyvalue.push('sort=Desc'); 
+		//}
 		
 		var parameter=$(this).attr("url");
+		console.log(parameter)
+		console.log('pathname')
 		var Data = ExtractQueryString(parameter);
 		for(var i in Data) {
 			keyvalue.push(i+"="+Data[i]);
 		}
 		pathname += keyvalue.join("&");
 		console.log(pathname)
-		window.location = "/reports?"+pathname;
-		
+		//window.location = "/reports?"+pathname;
 	});
 	
 function ExtractQueryString(parameter) {	
@@ -35,4 +36,3 @@ function ExtractQueryString(parameter) {
 }
 	
 });
-

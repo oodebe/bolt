@@ -23,17 +23,17 @@
 	<div style="height:30%;overflow: auto;">
 		<h3 style="margin-left:20px;width:25%">Reports</h3>
 		<section class="leftpanel">
-			<div>Test states
+			<div>Test States
 		<hr></hr>
-		<a  class="status getQuery" url="status=Halted "><i class="icon-pause"></i>Halted <span style="float:right" id="Halted"><%= showstatus.statusCounts.Halted %></span></a></br></br>
+		<a  class="status getQuery" url="status=Halted"><i class="icon-pause"></i>Halted <span style="float:right" id="Halted"><%= showstatus.statusCounts.Halted %></span></a></br></br>
 		<a  class="status getQuery" url="status=Completed"><i class="icon-check"></i>Completed <span style="float:right" id="Completed"><%= showstatus.statusCounts.Completed %></span></a></br></br>
 		<a  class="status getQuery " url="status=Running"><i class="icon-refresh"></i>Running <span style="float:right" id="Running"><%= showstatus.statusCounts.Running %></span></a>
 		</div>
 		<hr></hr>
 		<div>Test types
 		<hr></hr>
-		<a href="#" class="status">A/B Test</a></br></br>
-		<a href="#" class="status">System Matrics Test</a></br></br>
+		<a  class="status getQuery" url="test_type=ab">A/B Test</a></br></br>
+		<a  class="status getQuery" url="test_type=systemMetrics">System Metrics Test</a></br></br>
 		</div>
 		</section>
 	<section id="reportList" style="float:right;width:70%;height:30%">
